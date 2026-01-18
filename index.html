@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>MTK s2 | By Tim Host</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/tesseract.js@4.0.2/dist/tesseract.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjs@11.8.0/lib/browser/math.js"></script>
+</head>
+<body>
+
+    <header>
+        <div class="brand">
+            <div class="logo-shape">
+                <svg viewBox="0 0 24 24" width="24" height="24" stroke="white" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6H5a1 1 0 0 0-.77 1.64L9 12l-4.77 4.36A1 1 0 0 0 5 18h13"></path></svg>
+            </div>
+            <div class="brand-info">
+                <h1>[!] Matematika<span class="badge-pro">S2</span></h1>
+                <span>Professional Suite</span>
+            </div>
+        </div>
+        <div class="developer-badge">
+            By Team Host
+        </div>
+    </header>
+
+    <div class="container">
+        
+        <div id="mainMenu" class="card">
+            <div class="card-header">
+                <h2>Dashboard App</h2>
+            </div>
+            <p style="color: var(--text-muted); margin-bottom: 20px; line-height: 1.5; font-size: 0.9rem;">
+                Aplikasi matematika profesional dengan dukungan BigNumber & OCR. Pilih alat di bawah:
+            </p>
+            
+            <div class="menu-grid">
+                <div class="menu-item" onclick="showSection('calculator')">
+                    <div class="menu-icon-box">
+                        <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none"><rect x="4" y="2" width="16" height="20" rx="2"></rect><line x1="8" y1="6" x2="16" y2="6"></line><line x1="16" y1="14" x2="16" y2="14"></line><line x1="8" y1="14" x2="8" y2="14"></line><line x1="12" y1="14" x2="12" y2="14"></line><line x1="16" y1="18" x2="16" y2="18"></line><line x1="8" y1="18" x2="8" y2="18"></line><line x1="12" y1="18" x2="12" y2="18"></line></svg>
+                    </div>
+                    <div>
+                        <div style="font-weight: 700;">Kalkulator</div>
+                        <div style="font-size: 0.75rem; color: var(--text-muted);">Scientific Mode</div>
+                    </div>
+                </div>
+
+                <div class="menu-item" onclick="showSection('quiz')">
+                    <div class="menu-icon-box">
+                        <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none"><path d="M9.5 2A2.5 2.5 0 0 1 12 4.5v15a2.5 2.5 0 0 1-4.96.44 2.5 2.5 0 0 1-2.96-3.08 3 3 0 0 1-.34-5.58 2.5 2.5 0 0 1 1.32-4.24 2.5 2.5 0 0 1 1.98-3A2.5 2.5 0 0 1 9.5 2Z"></path><path d="M14.5 2A2.5 2.5 0 0 0 12 4.5v15a2.5 2.5 0 0 0 4.96.44 2.5 2.5 0 0 0 2.96-3.08 3 3 0 0 0 .34-5.58 2.5 2.5 0 0 0-1.32-4.24 2.5 2.5 0 0 0-1.98-3A2.5 2.5 0 0 0 14.5 2Z"></path></svg>
+                    </div>
+                    <div>
+                        <div style="font-weight: 700;">Quiz Mode</div>
+                        <div style="font-size: 0.75rem; color: var(--text-muted);">Ranked System</div>
+                    </div>
+                </div>
+
+                <div class="menu-item" onclick="showSection('customSoal')">
+                    <div class="menu-icon-box">
+                        <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg>
+                    </div>
+                    <div>
+                        <div style="font-weight: 700;">OCR Scanner</div>
+                        <div style="font-size: 0.75rem; color: var(--text-muted);">Scan by Image</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="calculator" class="card hidden">
+            <div class="card-header">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#6366f1" stroke-width="2"><rect x="4" y="2" width="16" height="20" rx="2"></rect></svg>
+                <h2>Kalkulator</h2>
+            </div>
+            
+            <input type="text" id="inputSoal" placeholder="0" style="text-align: right; font-size: 1.5rem; font-family: 'Courier New', monospace; margin-bottom: 15px;">
+            
+            <div class="calc-grid">
+                <button class="calc-btn fn" onclick="clearInput()">AC</button>
+                <button class="calc-btn fn" onclick="backspace()">DEL</button>
+                <button class="calc-btn fn" onclick="appendToInput('%')">%</button>
+                <button class="calc-btn op" onclick="appendToInput('/')">÷</button>
+                
+                <button class="calc-btn fn" onclick="appendToInput('sin(')">sin</button>
+                <button class="calc-btn fn" onclick="appendToInput('cos(')">cos</button>
+                <button class="calc-btn fn" onclick="appendToInput('√(')">√</button>
+                <button class="calc-btn op" onclick="appendToInput('^')">^</button>
+
+                <button class="calc-btn" onclick="appendToInput('7')">7</button>
+                <button class="calc-btn" onclick="appendToInput('8')">8</button>
+                <button class="calc-btn" onclick="appendToInput('9')">9</button>
+                <button class="calc-btn op" onclick="appendToInput('*')">×</button>
+                
+                <button class="calc-btn" onclick="appendToInput('4')">4</button>
+                <button class="calc-btn" onclick="appendToInput('5')">5</button>
+                <button class="calc-btn" onclick="appendToInput('6')">6</button>
+                <button class="calc-btn op" onclick="appendToInput('-')">-</button>
+                
+                <button class="calc-btn" onclick="appendToInput('1')">1</button>
+                <button class="calc-btn" onclick="appendToInput('2')">2</button>
+                <button class="calc-btn" onclick="appendToInput('3')">3</button>
+                <button class="calc-btn op" onclick="appendToInput('+')">+</button>
+                
+                <button class="calc-btn" onclick="appendToInput('0')">0</button>
+                <button class="calc-btn" onclick="appendToInput('.')">.</button>
+                <button class="calc-btn eq" onclick="hitungSoal()">=</button>
+            </div>
+            
+            <div id="loadingCalculator" class="loading hidden">
+                <svg style="animation: spin 1s linear infinite; margin-right: 5px;" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg>
+                Memproses...
+            </div>
+            
+            <div style="margin-top: 20px;">
+                <label style="font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px;">Hasil</label>
+                <div class="output-display" id="outputHasil"></div>
+            </div>
+        </div>
+
+        <div id="quiz" class="card hidden">
+            <div class="card-header">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+                <h2>KUIS MTK S2</h2>
+            </div>
+            
+            <div style="display: flex; flex-direction: column; gap: 15px; margin-bottom: 25px;">
+                <select id="tingkatPendidikan">
+                    <option value="tk">🎨 TK (Pemula)</option>
+                    <option value="sd">👦 SD (Dasar)</option>
+                    <option value="smp">👨‍🎓 SMP (Menengah)</option>
+                    <option value="sma">👩‍🎓 SMA (Lanjut)</option>
+                    <option value="mahasiswa">🎓 Universitas </option>
+                </select>
+                
+                <select id="jenisSoal">
+                    <option value="acak">🎲 Semua SOAL</option>
+                    <option value="+">➕ Penjumlahan</option>
+                    <option value="-">➖ Pengurangan</option>
+                    <option value="*">✖️ Perkalian</option>
+                    <option value="/">➗ Pembagian</option>
+                    <option value="^">🔢 Perpangkatan</option>
+                    <option value="√">√ Akar</option>
+                </select>
+            </div>
+            
+            <div class="output-display" id="quizSoal" style="text-align: center; display: flex; align-items: center; justify-content: center; min-height: 80px;">
+                Klik Mulai Ujian
+            </div>
+            
+            <input type="text" id="jawabanQuiz" placeholder="Masukkan jawaban..." style="text-align: center; margin-bottom: 15px;">
+            
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                <button class="btn-primary" onclick="cekJawaban()">Jawab</button>
+                <button class="btn-primary btn-secondary" id="btnNextSoal" onclick="nextSoal()" style="display:none;">Lanjut ➡️</button>
+            </div>
+            
+            <div id="quizFeedback" style="text-align: center; margin: 15px 0;"></div>
+            <div class="score" id="quizScore" style="text-align: center; font-weight: 800; color: var(--primary);">SCORE: 0</div>
+            
+            <button class="btn-primary" style="margin-top: 20px; background: #10b981;" onclick="mulaiQuiz()">Mulai Ujian</button>
+        </div>
+
+        <div id="customSoal" class="card hidden">
+            <div class="card-header">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#f43f5e" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+                <h2>Tools & OCR</h2>
+            </div>
+            
+            <div style="margin-bottom: 30px;">
+                <label style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 5px; display: block;">MANUAL INPUT</label>
+                <textarea id="soalUser" rows="2" placeholder="Contoh: 15% dari 500 + 20"></textarea>
+                <button class="btn-primary" onclick="hitungCustomSoal()" style="margin-top: 10px;">Hitung</button>
+                <div class="output-display" id="outputCustomSoal" style="margin-top: 15px;"></div>
+            </div>
+
+            <div style="border-top: 1px dashed var(--glass-border); padding-top: 20px;">
+                <label style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 5px; display: block;">OCR SCANNER (BETA)</label>
+                <div style="position: relative;">
+                    <input type="file" id="fotoSoal" accept="image/*">
+                </div>
+                <div id="previewFoto" style="margin: 15px 0;"></div>
+                <button class="btn-primary btn-secondary" onclick="kirimFotoSoal()">🔍 Scan Gambar</button>
+            </div>
+        </div>
+
+        <div id="history" class="card hidden">
+            <div class="card-header">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                <h2>History</h2>
+                <button onclick="clearHistory()" style="margin-left: auto; background: var(--error); border: none; padding: 5px 10px; border-radius: 6px; color: white; font-size: 0.7rem;">Clear</button>
+            </div>
+            <div id="historyList" style="max-height: 300px; overflow-y: auto;"></div>
+        </div>
+        
+    </div> <nav class="nav-dock">
+        <button class="nav-item active" onclick="showSection('mainMenu')">
+            <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+            <span class="nav-label">Home</span>
+        </button>
+        <button class="nav-item" onclick="showSection('calculator')">
+            <svg viewBox="0 0 24 24"><rect x="4" y="2" width="16" height="20" rx="2"></rect><line x1="8" y1="6" x2="16" y2="6"></line><line x1="16" y1="14" x2="16" y2="14"></line><line x1="8" y1="14" x2="8" y2="14"></line><line x1="12" y1="14" x2="12" y2="14"></line><line x1="16" y1="18" x2="16" y2="18"></line><line x1="8" y1="18" x2="8" y2="18"></line><line x1="12" y1="18" x2="12" y2="18"></line></svg>
+            <span class="nav-label">Calc</span>
+        </button>
+        <button class="nav-item" onclick="showSection('quiz')">
+            <svg viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg>
+            <span class="nav-label">Quiz</span>
+        </button>
+        <button class="nav-item" onclick="showSection('history')">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+            <span class="nav-label">History</span>
+        </button>
+    </nav>
+
+    <script src="script.js"></script>
+</body>
+</html>
